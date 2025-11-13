@@ -21,6 +21,7 @@
 
 (global-display-line-numbers-mode 1)
 (set-default 'truncate-lines t)
+(setq global-visual-wrap-prefix-mode t)
 
 (global-prettify-symbols-mode 1)
 
@@ -28,8 +29,10 @@
 (setq blink-cursor-blinks -1)
 (setq focus-follows-mouse t)
 (setq mouse-autoselect-window t)
+(setq scroll-preserve-screen-position t)
+(setq redisplay-skip-fontification-on-input t)
 (global-hl-line-mode)
-(global-visual-line-mode)
+;; (global-visual-line-mode)
 
 (display-line-numbers-mode 1)
 (setq-default display-line-numbers-type 'relative)
@@ -47,7 +50,6 @@
 (setq vc-make-backup-files t)
 (setq delete-old-versions t)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-
 
 (push "/home/adam/.emacs.d/lisp/" load-path)
 
@@ -87,7 +89,8 @@
               ("C-k" . vertico-previous))
   :config
   (setq vertico-cycle t)
-  (setq imenu-auto-rescan t))
+  (setq imenu-auto-rescan t)
+  (setq completion-styles (list 'flex)))
 
 (use-package marginalia
   :init
@@ -183,26 +186,6 @@
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-normal-state-map
-              (kbd "C-u")
-              #'(lambda ()
-                  (interactive)
-                  (call-interactively #'recenter)
-                  (evil-scroll-up 16)))
-  (define-key evil-normal-state-map
-              (kbd "C-d")
-              #'(lambda ()
-                  (interactive)
-                  (call-interactively #'recenter)
-                  (evil-scroll-down 16)))
-
-  (define-key evil-normal-state-map
-              (kbd "C--")
-              #'(lambda () (interactive) (emms-volume-lower)))
-  (define-key evil-normal-state-map
-              (kbd "C-=")
-              #'(lambda () (interactive) (emms-volume-raise)))
-
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
@@ -351,7 +334,8 @@
 (use-package cider)
 
 (use-package geiser)
-(use-package geiser-guile)
+(use-package geiser-racket)
+(use-package racket-mode)
 
 (use-package cc-mode
   :config
@@ -515,3 +499,4 @@
 
 (provide 'init)
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)

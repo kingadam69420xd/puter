@@ -54,7 +54,7 @@
 (defun adam/goto-homepage ()
   "Find main EMACS page."
   (interactive)
-  (find-file "~/adam/master.org"))
+  (find-file "~/adam/homepage.org"))
 
 (defun adam/reload-init-file ()
   "Reload EMACS config."
